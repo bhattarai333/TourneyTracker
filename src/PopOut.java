@@ -52,7 +52,6 @@ class PopOut {
 
         JLabel notesLabel = new JLabel("Notes: ");
         JLabel notes = new JLabel(b.notes);
-        System.out.println(b.notes);
         JTextField notesField = new JTextField(60);
 
         if(b.doubles){
@@ -132,16 +131,13 @@ class PopOut {
 
             get.deleteFile(metaPath);
             if(content.length() == codeLength){
-                System.out.println(2);
                 content = "";
             }
             else if(codeLength + 8+index>content.length()){
-                System.out.println(1);
                 content = content.substring(0,index-8);
                 get.writeFile(content,metaPath);
             }
             else{
-                System.out.println(3);
                 content = content.substring(0,index) + content.substring(index+codeLength+8,content.length());
                 get.writeFile(content,metaPath);
             }
