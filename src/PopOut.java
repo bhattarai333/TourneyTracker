@@ -38,6 +38,15 @@ class PopOut {
         JLabel seedLabel = new JLabel("Seeded: " + b.seed);
         JLabel placelabel = new JLabel("Placed: " + b.finalRank + " out of: " + b.participants + " participants.");
         JLabel accLabel = new JLabel("Seed Accuracy: "+ b.seedAccuracy);
+        int profit;
+        if(GetResources.isInteger(b.winnings,10)&&GetResources.isInteger(b.bracketFee,10)&&GetResources.isInteger(b.venueFee,10)) {
+            profit = Integer.parseInt(b.winnings) - (Integer.parseInt(b.bracketFee) + Integer.parseInt(b.venueFee));
+        }else{
+            profit = 0;
+        }
+        JLabel spaceLabel = new JLabel("         ");
+        JLabel moneyLabel = new JLabel ("Venue Fee: $" + b.venueFee+" Bracket fee: $" + b.bracketFee + " Won: $" + b.winnings +
+                " Net Profit: $" + profit);
 
 
 
@@ -53,6 +62,8 @@ class PopOut {
         infoPanel.add(seedLabel);
         infoPanel.add(placelabel);
         infoPanel.add(accLabel);
+        infoPanel.add(spaceLabel);
+        infoPanel.add(moneyLabel);
 
         topPanel.add(refreshButton);
         topPanel.add(deleteButton);

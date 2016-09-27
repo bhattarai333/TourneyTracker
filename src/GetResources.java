@@ -7,6 +7,7 @@ import java.net.*;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 /**
  * Write a description of class getResources here.
@@ -16,6 +17,15 @@ import java.io.InputStreamReader;
  */
 class GetResources
 {
+
+    public static boolean isInteger(String s, int radix) {
+        Scanner sc = new Scanner(s.trim());
+        if(!sc.hasNextInt(radix)) return false;
+        // we know it starts with a valid int, now make sure
+        // there's nothing left!
+        sc.nextInt(radix);
+        return !sc.hasNext();
+    }
 
     public BufferedImage getImg(String path){
         //returns BufferedImage of a png file with the file name path in sprites folder

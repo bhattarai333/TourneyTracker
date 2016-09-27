@@ -330,16 +330,7 @@ class View
     }
 
     private boolean isInt(String s){
-        try {
-            Integer.parseInt(s);
-
-        } catch(NumberFormatException e) {
-            return false;
-        } catch(NullPointerException e) {
-            return false;
-        }
-        // only got here if we didn't return false
-        return true;
+        return(GetResources.isInteger(s,10));
     }
 
     private int getFinalRankFromStandings(String url){
