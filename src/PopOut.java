@@ -51,7 +51,9 @@ class PopOut {
 
 
         JLabel notesLabel = new JLabel("Notes: ");
-        JLabel notes = new JLabel(b.notes);
+        JTextField notes = new JTextField(b.notes);
+        notes.setEditable(false);
+        notes.setBorder(null);
         JTextField notesField = new JTextField(60);
 
         if(b.doubles){
