@@ -148,7 +148,6 @@ class View
 
         refreshButton.addActionListener(e -> {
             AddBracket sf = new AddBracket();
-            System.out.println("test01");
             for (Bracket b:brackets){
                 sf.writeData(b);
                 try {
@@ -240,7 +239,6 @@ class View
             b.secondChar = dataStuff[5];
             b.pocketChar = dataStuff[6];
             b.notes = dataStuff[9];
-            System.out.println(b.notes);
             if (dataStuff[7].equals("true")) {
                 b.doubles = true;
                 b.doublesPartner = dataStuff[8];
