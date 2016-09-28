@@ -267,7 +267,7 @@ class View
             b.rawDate = jsonStuff.getString("started_at");
             b.url = jsonStuff.getString("full_challonge_url");
             b.description = jsonStuff.getString("description");
-            b.gameName = jsonStuff.getString("game_name");
+            b.gameName = jsonStuff.get("game_name").toString();
             b.state = jsonStuff.getString("state");
 
 
