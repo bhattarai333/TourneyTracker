@@ -36,7 +36,7 @@ class PopOut {
         JLabel teamName = new JLabel("Team Name: " + b.tag);
         JLabel partnerLabel = new JLabel("Doubles Partner: " + b.doublesPartner);
         JLabel seedLabel = new JLabel("Seeded: " + b.seed);
-        JLabel placelabel = new JLabel("Placed: " + b.finalRank + " out of: " + b.participants + " participants.");
+        JLabel placeLabel = new JLabel("Placed: " + b.finalRank + " out of: " + b.participants + " participants.");
         JLabel accLabel = new JLabel("Seed Accuracy: "+ b.seedAccuracy);
         int profit;
         if(GetResources.isInteger(b.winnings,10)&&GetResources.isInteger(b.bracketFee,10)&&GetResources.isInteger(b.venueFee,10)) {
@@ -61,7 +61,7 @@ class PopOut {
             infoPanel.add(partnerLabel);
         }
         infoPanel.add(seedLabel);
-        infoPanel.add(placelabel);
+        infoPanel.add(placeLabel);
         infoPanel.add(accLabel);
         infoPanel.add(spaceLabel);
         infoPanel.add(moneyLabel);
@@ -114,6 +114,7 @@ class PopOut {
         });
 
         refreshButton.addActionListener(e -> {
+
             if(!b.complete){
                 ab.writeData(b);
             }
