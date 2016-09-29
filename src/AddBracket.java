@@ -13,7 +13,6 @@ class AddBracket
 {
     private GetResources get = new GetResources();
     private String customKey = "~`v''~!~";
-    private String apiKey;
     private String bracketContent;
 
     void startMethod(){
@@ -272,7 +271,7 @@ class AddBracket
         if(b.doubles){doubles = "true";}else{doubles="false";}
         String code = getCode(url);
 
-        apiKey = get.getTextFromFile(get.getProgramPath() + "//Brackets//api_key.smash");
+        String apiKey = get.getTextFromFile(get.getProgramPath() + "//Brackets//api_key.smash");
 
         String getRequest = "https://api.challonge.com/v1/tournaments/" +
                 code + ".json?include_matches=1&include_participants=1&api" + "_key=" + apiKey;
