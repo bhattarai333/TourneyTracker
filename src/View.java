@@ -110,6 +110,9 @@ class View
             bPanel.setBorder(BorderFactory.createMatteBorder(1,5,1,1,Color.black));
             bracketPanel.add(bPanel);
         }
+
+        
+
         bracketPanel.setLayout(new BoxLayout(bracketPanel,1));
         mainPanel.add(bracketPanel);
         mainPanel.setLayout(new BoxLayout(mainPanel,1));
