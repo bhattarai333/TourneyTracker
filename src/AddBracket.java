@@ -27,20 +27,18 @@ class AddBracket
         JButton addButton = new JButton("Add");
         JButton viewButton = new JButton("View");
         JButton deleteButton = new JButton("Delete all Data");
-        JButton saveButton = new JButton("Save API key");
+        JButton saveButton = new JButton("Enter API key");
         JLabel label2 = new JLabel("Enter Challonge API key: ");
         JTextField apiField = new JTextField(60);
         JButton apiButton = new JButton("What's my Key?");
         JButton realDeleteButton = new JButton("Really Delete All Data");
         JButton nope = new JButton("I don't wanna delete all data");
+        JButton apiSaveButton = new JButton("Save");
 
         nope.addActionListener(e -> {
             f.remove(realDeleteButton);
             f.remove(nope);
-            f.revalidate();
-            f.repaint();
-            f.pack();
-            f.setSize(700,500);
+            reval(f);
         });
 
         realDeleteButton.addActionListener(e -> {
@@ -60,12 +58,23 @@ class AddBracket
         });
 
         saveButton.addActionListener(e -> {
+            f.add(label2);
+            f.add(apiField);
+            f.add(apiSaveButton);
+            reval(f);
+        });
+
+        apiSaveButton.addActionListener(e ->{
             String api = apiField.getText();
             if(!(api.trim().equals(""))) {
                 String path = get.getProgramPath();
                 path = path + "//Brackets//api_key.smash";
                 get.writeFile(api, path);
             }
+            f.remove(label2);
+            f.remove(apiField);
+            f.remove(apiSaveButton);
+            reval(f);
         });
 
         addButton.addActionListener(e -> {
@@ -82,10 +91,7 @@ class AddBracket
         deleteButton.addActionListener(e -> {
             f.add(realDeleteButton);
             f.add(nope);
-            f.revalidate();
-            f.repaint();
-            f.pack();
-            f.setSize(700,500);
+            reval(f);
 
         });
 
@@ -96,12 +102,17 @@ class AddBracket
         f.add(deleteButton);
         f.add(saveButton);
         f.add(apiButton);
-        f.add(label2);
-        f.add(apiField);
 
         f.setLayout(new FlowLayout());
         f.toFront();
         f.setResizable(false);
+    }
+
+    private void reval(JFrame f){
+        f.revalidate();
+        f.repaint();
+        f.pack();
+        f.setSize(700,500);
     }
 
     void addBracket(){
