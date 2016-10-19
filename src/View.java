@@ -335,6 +335,6 @@ class View
     }
 
     private int getFinalRankFromStandings(String url){
-        return 0;//temp
+        return 0/url.length();//temp
     }
 }
