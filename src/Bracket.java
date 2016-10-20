@@ -47,12 +47,8 @@ class Bracket implements Comparable<Bracket> {
 
     @Override
     public String toString(){
-        String output = "Code: " + code + " Name: " + name + " Date: " + date  + " Desc: " + description;
-        output = output + " URL: " + url + " Tag: " + tag + " Venue: " + venueFee + " Bracket: " + bracketFee;
-        output = output + " Main: " + mainChar + " Secondary: " + secondChar + " Pocket: " + pocketChar;
-        output = output + " Seed: " + seed + " Placing: " + finalRank + " Participant ID: " + participantID
-                +"Game: " + gameName + "State: " + state + "Participants: " + participants;
-        return output;
+        return code + " " + name + " " + date + " " + description + " " + url  + " " + gameName + " " + tag
+                + " " + mainChar + " " + secondChar + " " + pocketChar + " " + doublesPartner;
     }
 
 

@@ -22,12 +22,14 @@ class View
     private final int SORT_BY_SIZE = 2;
     private final int SORT_BY_NAME = 3;
     private final int SORT_BY_PERCENT = 4;
-    private ArrayList<Bracket> brackets = new ArrayList<>();
+    private ArrayList<Bracket> allBrackets = new ArrayList<>();
+    private ArrayList<Bracket> bracketsToDisplay = new ArrayList<>();
     private String customKey;
     private GetResources get = new GetResources();
     private JFrame window;
     private JPanel mainPanel;
     private JPanel bracketPanel = new JPanel();
+    private boolean isSearching = false;
 
     void viewBrackets(String cK) {
         customKey = cK;
@@ -42,9 +44,16 @@ class View
 
     private void displayBrackets(){
         boolean color = true;
+        if(isSearching){
+            System.out.println("Searching");
+            Collections.sort(bracketsToDisplay);
+        }else{
+            System.out.println("Not Searching");
+            bracketsToDisplay.addAll(allBrackets);
+            Collections.sort(allBrackets);
+        }
         bracketPanel.setBackground(Color.white);
-        Collections.sort(brackets);
-        for (Bracket b : brackets) {
+        for (Bracket b : bracketsToDisplay) {
 
             JPanel bPanel = new JPanel();
             bPanel.setBackground(Color.white);
@@ -140,8 +149,38 @@ class View
         String[] sorts = {"Date", "Placing", "Participants","Name","Percentile"};
         JComboBox<String> box = new JComboBox<>(sorts);
         JButton enterButton = new JButton("Enter");
-        JButton refreshButton = new JButton("Refresh All Brackets");
         JButton addButton = new JButton("Add new Brackets");
+        JTextField searchField = new JTextField(25);
+        JButton searchButton = new JButton();
+
+
+        box.setAlignmentX(Component.LEFT_ALIGNMENT);
+        sortPanel.add(addButton);
+        sortPanel.add(sortLabel);
+        sortPanel.add(box);
+        sortPanel.add(enterButton);
+        sortPanel.add(searchField);
+        sortPanel.add(searchButton);
+        sortPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
+        sortPanel.setBorder(BorderFactory.createMatteBorder(1,5,1,1,Color.black));
+        mainPanel.add(sortPanel);
+
+        searchButton.addActionListener(e -> {
+            String searchTerm = searchField.getText().trim();
+            bracketsToDisplay.clear();
+            if(searchTerm.equals("")){
+                isSearching = false;
+            }else{
+                isSearching = true;
+                for(Bracket b : allBrackets){
+                    if(b.toString().contains(searchTerm)){
+                        bracketsToDisplay.add(b);
+                    }
+                }
+            }
+
+            redisplayBrackets();
+        });
 
         addButton.addActionListener(e ->{
             AddBracket ab = new AddBracket();
@@ -149,71 +188,48 @@ class View
             window.dispose();
         });
 
-        refreshButton.addActionListener(e -> {
-            AddBracket sf = new AddBracket();
-            for (Bracket b:brackets){
-                sf.writeData(b);
-                try {
-                    //sleep 5 seconds
-                    Thread.sleep(10000);
-                } catch (InterruptedException el) {
-                    el.printStackTrace();
-                }
-            }
-            bracketPanel.removeAll();
-            bracketPanel.revalidate();
-            bracketPanel.repaint();
-            brackets.clear();
-            readJSON();
-            displayBrackets();
-        });
+
 
         enterButton.addActionListener(e -> {
+            String searchTerm = searchField.getText().trim();
+
+
+            if(searchTerm.equals("")){
+                isSearching = false;
+                bracketsToDisplay.clear();
+            }
             String sortString = box.getSelectedItem().toString();
             switch(sortString){
                 case "Date":
-                    for(Bracket b:brackets){
+                    for(Bracket b: allBrackets){
                         b.sort = SORT_BY_DATE;
                     }
                     break;
                 case "Placing":
-                    for(Bracket b:brackets){
+                    for(Bracket b: allBrackets){
                         b.sort = SORT_BY_PLACE;
                     }
                     break;
                 case "Participants":
-                    for(Bracket b:brackets){
+                    for(Bracket b: allBrackets){
                         b.sort = SORT_BY_SIZE;
                     }
                     break;
                 case "Name":
-                    for(Bracket b:brackets){
+                    for(Bracket b: allBrackets){
                         b.sort = SORT_BY_NAME;
                     }
                     break;
                 case "Percentile":
-                    for(Bracket b:brackets){
+                    for(Bracket b: allBrackets){
                         b.sort= SORT_BY_PERCENT;
                     }
             }
 
 
-            Collections.sort(brackets);
-            bracketPanel.removeAll();
-            bracketPanel.revalidate();
-            bracketPanel.repaint();
-            displayBrackets();
+            Collections.sort(allBrackets);
+            redisplayBrackets();
         });
-
-        box.setAlignmentX(Component.LEFT_ALIGNMENT);
-        sortPanel.add(addButton);
-        sortPanel.add(sortLabel);
-        sortPanel.add(box);
-        sortPanel.add(enterButton);
-        sortPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
-        //sortPanel.add(refreshButton);
-        sortPanel.setBorder(BorderFactory.createMatteBorder(1,5,1,1,Color.black));
-        mainPanel.add(sortPanel);
 
     }
 
@@ -324,7 +340,7 @@ class View
                 b.losses = losses;
             }
 
-            brackets.add(b);
+            allBrackets.add(b);
 
 
         }
@@ -336,5 +352,12 @@ class View
 
     private int getFinalRankFromStandings(String url){
         return 0/url.length();//temp
+    }
+
+    private void redisplayBrackets(){
+        bracketPanel.removeAll();
+        bracketPanel.revalidate();
+        bracketPanel.repaint();
+        displayBrackets();
     }
 }

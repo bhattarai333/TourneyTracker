@@ -147,7 +147,7 @@ class PopOut {
                 content = content.substring(0,index) + content.substring(index+codeLength+8,content.length());
                 get.writeFile(content,metaPath);
             }
-
+            window.dispose();
         });
     }
 
