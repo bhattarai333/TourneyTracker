@@ -1,3 +1,4 @@
+import org.jetbrains.annotations.NotNull;
 import org.json.*;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ class Bracket implements Comparable<Bracket> {
     }
 
 
-    public int compareTo(Bracket b){
+    public int compareTo(@NotNull Bracket b){
         switch (sort){
             case 0:
                 //sort by date
