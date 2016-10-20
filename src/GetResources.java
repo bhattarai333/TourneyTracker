@@ -275,6 +275,9 @@ class GetResources
         }
     }
 
+    public String getUnicodeSymbol(int codePoint) {
+        return new String(Character.toChars(codePoint));
+    }
 
 
 }

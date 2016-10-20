@@ -31,17 +31,13 @@ class View
     private JPanel bracketPanel = new JPanel();
     private boolean isSearching = false;
     private boolean filterInReverse = false;
-    private ImageIcon upArrow;
-    private ImageIcon downArrow;
-    private ImageIcon magnifyingGlass;
+    private ImageIcon magnifyingGlassIcon;
 
     void viewBrackets(String cK) {
         customKey = cK;
         window = new JFrame("Bracket Info");
         mainPanel = new JPanel();
-        upArrow = new ImageIcon(get.getSizedImg(get.getImg("uarrow"),16,24));
-        downArrow = new ImageIcon(get.getSizedImg(get.getImg("darrow"),16,24));
-        magnifyingGlass = new ImageIcon(get.getSizedImg(get.getImg("search"),16,16));
+        magnifyingGlassIcon = new ImageIcon(get.getSizedImg(get.getImg("search"),16,16));
 
         readJSON();
         display();
@@ -160,9 +156,8 @@ class View
         JButton addButton = new JButton("Add new Brackets");
         JTextField searchField = new JTextField(25);
         JButton searchButton = new JButton();
-        searchButton.setIcon(magnifyingGlass);
-        JButton switchButton = new JButton();
-        switchButton.setIcon(upArrow);
+        searchButton.setIcon(magnifyingGlassIcon);
+        JButton switchButton = new JButton("↑");
         switchButton.setBorder(null);
 
 
@@ -177,13 +172,12 @@ class View
         sortPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
         sortPanel.setBorder(BorderFactory.createMatteBorder(1,5,1,1,Color.black));
         mainPanel.add(sortPanel);
-
         switchButton.addActionListener(e -> {
             if(filterInReverse){
-                switchButton.setIcon(upArrow);
+                switchButton.setText("↑");
                 filterInReverse = false;
             }else{
-                switchButton.setIcon(downArrow);
+                switchButton.setText("↓");
                 filterInReverse = true;
             }
         });
