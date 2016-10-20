@@ -30,11 +30,18 @@ class View
     private JPanel mainPanel;
     private JPanel bracketPanel = new JPanel();
     private boolean isSearching = false;
+    private boolean filterInReverse = false;
+    private ImageIcon upArrow;
+    private ImageIcon downArrow;
+    private ImageIcon magnifyingGlass;
 
     void viewBrackets(String cK) {
         customKey = cK;
         window = new JFrame("Bracket Info");
         mainPanel = new JPanel();
+        upArrow = new ImageIcon(get.getSizedImg(get.getImg("uarrow"),16,24));
+        downArrow = new ImageIcon(get.getSizedImg(get.getImg("darrow"),16,24));
+        magnifyingGlass = new ImageIcon(get.getSizedImg(get.getImg("search"),16,16));
 
         readJSON();
         display();
@@ -51,6 +58,9 @@ class View
             Collections.sort(allBrackets);
         }
         bracketPanel.setBackground(Color.white);
+        if(filterInReverse){
+            Collections.reverse(bracketsToDisplay);
+        }
         for (Bracket b : bracketsToDisplay) {
 
             JPanel bPanel = new JPanel();
@@ -150,19 +160,33 @@ class View
         JButton addButton = new JButton("Add new Brackets");
         JTextField searchField = new JTextField(25);
         JButton searchButton = new JButton();
-        searchButton.setIcon(new ImageIcon(get.getSizedImg(get.getImg("search"),16,16)));
+        searchButton.setIcon(magnifyingGlass);
+        JButton switchButton = new JButton();
+        switchButton.setIcon(upArrow);
+        switchButton.setBorder(null);
 
 
         box.setAlignmentX(Component.LEFT_ALIGNMENT);
         sortPanel.add(addButton);
         sortPanel.add(sortLabel);
         sortPanel.add(box);
+        sortPanel.add(switchButton);
         sortPanel.add(enterButton);
         sortPanel.add(searchField);
         sortPanel.add(searchButton);
         sortPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
         sortPanel.setBorder(BorderFactory.createMatteBorder(1,5,1,1,Color.black));
         mainPanel.add(sortPanel);
+
+        switchButton.addActionListener(e -> {
+            if(filterInReverse){
+                switchButton.setIcon(upArrow);
+                filterInReverse = false;
+            }else{
+                switchButton.setIcon(downArrow);
+                filterInReverse = true;
+            }
+        });
 
         searchButton.addActionListener(e -> {
             String searchTerm = searchField.getText().trim();
