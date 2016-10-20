@@ -159,6 +159,7 @@ class View
         searchButton.setIcon(magnifyingGlassIcon);
         JButton switchButton = new JButton("↑");
         switchButton.setBorder(null);
+        switchButton.setFont(new Font("Arial",Font.PLAIN,24));
 
 
         box.setAlignmentX(Component.LEFT_ALIGNMENT);
