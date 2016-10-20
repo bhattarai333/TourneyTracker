@@ -45,10 +45,8 @@ class View
     private void displayBrackets(){
         boolean color = true;
         if(isSearching){
-            System.out.println("Searching");
             Collections.sort(bracketsToDisplay);
         }else{
-            System.out.println("Not Searching");
             bracketsToDisplay.addAll(allBrackets);
             Collections.sort(allBrackets);
         }
@@ -82,7 +80,7 @@ class View
 
             infoButton.addActionListener(e ->{
                 PopOut p = new PopOut();
-                p.start(b,customKey);
+                p.start(b,customKey,this);
             });
 
             label1.addMouseListener(new MouseAdapter(){
@@ -355,9 +353,19 @@ class View
     }
 
     private void redisplayBrackets(){
+        redisplayBrackets(false);
+    }
+
+    void redisplayBrackets(Boolean clear){
+        if(clear){
+            bracketsToDisplay.clear();
+        }
         bracketPanel.removeAll();
         bracketPanel.revalidate();
         bracketPanel.repaint();
         displayBrackets();
+    }
+    void deleteBracket(Bracket b){
+        allBrackets.remove(b);
     }
 }

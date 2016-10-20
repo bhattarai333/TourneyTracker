@@ -14,7 +14,7 @@ class PopOut {
     private JPanel contentPanel;
     private JPanel bottomPanel;
 
-    void start(Bracket b,String customKey){
+    void start(Bracket b,String customKey, View v){
         window = new JFrame(b.name + " " + b.date);
         window.setBounds(0, 0, 700, 500);
         window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -148,6 +148,9 @@ class PopOut {
                 get.writeFile(content,metaPath);
             }
             window.dispose();
+            v.deleteBracket(b);
+            v.redisplayBrackets(true);
+
         });
     }
 
