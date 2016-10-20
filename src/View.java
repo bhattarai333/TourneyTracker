@@ -150,6 +150,7 @@ class View
         JButton addButton = new JButton("Add new Brackets");
         JTextField searchField = new JTextField(25);
         JButton searchButton = new JButton();
+        searchButton.setIcon(new ImageIcon(get.getSizedImg(get.getImg("search"),16,16)));
 
 
         box.setAlignmentX(Component.LEFT_ALIGNMENT);
