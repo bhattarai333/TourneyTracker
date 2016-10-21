@@ -184,14 +184,14 @@ class View
         });
 
         searchButton.addActionListener(e -> {
-            String searchTerm = searchField.getText().trim();
+            String searchTerm = searchField.getText().trim().toLowerCase();
             bracketsToDisplay.clear();
             if(searchTerm.equals("")){
                 isSearching = false;
             }else{
                 isSearching = true;
                 for(Bracket b : allBrackets){
-                    if(b.toString().contains(searchTerm)){
+                    if(b.toString().toLowerCase().contains(searchTerm)){
                         bracketsToDisplay.add(b);
                     }
                 }
